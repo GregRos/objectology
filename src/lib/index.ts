@@ -38,7 +38,8 @@ export type SomeConstructor = {
 };
 
 export interface ObjectDefs {
-    /**Returns all non-symbol keys in `target`, including inherited keys. Use `filter` to exclude some keys.
+    /**
+     * Returns all non-symbol keys in `target`, including inherited keys. Use `filter` to exclude some keys.
      * @param target The target.
      * @param filter An object describing which types of keys to exclude, if any.
      *
