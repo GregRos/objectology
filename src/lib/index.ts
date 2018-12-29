@@ -1,40 +1,54 @@
-import {DefineDescriptors, ExpandedPropertyDescriptor, PropertyFilter, SomeConstructor, TargetObject} from "./abstract";
-import {_keysAllStr} from "./implementations/objects/_keys-all-str";
-import {_keysAll} from "./implementations/objects/_keys-all";
-import {_keysOwn} from "./implementations/objects/_keys-own";
-import {_descriptorsAll} from "./implementations/objects/_descriptors-all";
-import {_protoChain} from "./implementations/objects/_proto-chain";
-import {_protos} from "./implementations/objects/_protos";
-import {_ctor} from "./implementations/objects/_ctor";
-import {_className, _classNameOwn} from "./implementations/objects/_class-name";
-import {_ctors} from "./implementations/objects/_ctors";
-import {_configureDescriptorsOwn} from "./implementations/objects/_configure-descriptors-own";
-import {_mixin} from "./implementations/objects/_mixin";
-import {_nearestCommonPrototype} from "./implementations/objects/_nearest-common-prototype";
+import {
+    DefineDescriptors,
+    ExpandedPropertyDescriptor,
+    PropertyFilter,
+    SomeConstructor,
+    TargetObject
+} from "./abstract";
+import {_keysAllStr} from "./objects/_keys-all-str";
+import {_keysAll} from "./objects/_keys-all";
+import {_keysOwn} from "./objects/_keys-own";
+import {_descriptorsAll} from "./objects/_descriptors-all";
+import {_protoChain} from "./objects/_proto-chain";
+import {_protos} from "./objects/_protos";
+import {_ctor} from "./objects/_ctor";
+import {_className, _classNameOwn} from "./objects/_class-name";
+import {_ctors} from "./objects/_ctors";
+import {_configureDescriptorsOwn} from "./objects/_configure-descriptors-own";
+import {_mixin} from "./objects/_mixin";
+import {_nearestCommonPrototype} from "./objects/_nearest-common-prototype";
 
 /**
- * Returns all non-symbol keys in `target`, including inherited keys. Use `filter` to exclude some keys.
+ * Returns all non-symbol keys in `target`, including inherited keys. Use
+ * `filter` to exclude some keys.
  *
  * ### Details
- * This function will recurse into the object's prototype chain, extracting all own and inherited non-symbol keys in the object.
- * Numeric keys will be returned in string form.
+ * This function will recurse into the object's prototype chain,
+ * extracting all own and inherited non-symbol keys in the object. Numeric key
+ * will be returned in string form. dfsdfdsfsdfsdf fdfsdf
  *
  * @param target The target.
  * @param filter An object describing which types of keys to exclude, if any.
  * @see keysAll
  */
-export function keysAllStr(target: TargetObject, filter?: PropertyFilter): string[] {
+export function keysAllStr(
+    target: TargetObject, filter?: PropertyFilter): string[] {
+    let x = 111111111111111111111111111111111111111111111111111 +
+        1111111111111111111111111111;
     return _keysAllStr(target, filter);
+
 }
 
 /**
- * As [[allKeysStr]], except that this will retrieve symbol keys and numeric keys in their numeric form.
+ * As [[allKeysStr]], except that this will retrieve symbol keys and numeric
+ * keys in their numeric form.
  * @param target The target.
  * @param filter An object describing which keys to exclude, if any.
  *
  * @see allKeysStr
  */
-export function keysAll(target: TargetObject, filter?: PropertyFilter): PropertyKey[] {
+export function keysAll(
+    target: TargetObject, filter?: PropertyFilter): PropertyKey[] {
     return _keysAll(target, filter);
 }
 
@@ -47,13 +61,16 @@ export function keysOwn(target: TargetObject): PropertyKey[] {
 }
 
 /**
- * Returns information about every property in the object, including inherited properties. Use `filter` to exclude some objects.
+ * Returns information about every property in the object, including inherited
+ * properties. Use `filter` to exclude some objects.
  *
  * @param target The target.
  * @param filter An object describing which properties to exclude, if any.
  *
  */
-export function descriptorsAll(target: TargetObject, filter?: PropertyFilter): ExpandedPropertyDescriptor[] {
+export function descriptorsAll(
+    target: TargetObject,
+    filter?: PropertyFilter): ExpandedPropertyDescriptor[] {
     return _descriptorsAll(target, filter);
 }
 
@@ -62,14 +79,17 @@ export function descriptorsAll(target: TargetObject, filter?: PropertyFilter): E
  *
  * ## Details
  * For primitive types, their wrapper object's prototype chain will be used.
- * For objects without prototypes, a one-element array containing `target` will be returned.
+ * For objects without prototypes, a one-element array containing `target` will
+ * be returned.
  *
  * @param target The target.
  * @param stopAtProto The prototype at which to stop.
  */
-export function protoChain(target: TargetObject, stopAtProto?: unknown): unknown[] {
+export function protoChain(
+    target: TargetObject, stopAtProto?: unknown): unknown[] {
     return _protoChain(target, stopAtProto);
 }
+
 /**
  * Returns the prototype chain of the object, not including the object itself.
 
@@ -85,35 +105,39 @@ export function protos(target: TargetObject, stopAtProto?: unknown): unknown[] {
 }
 
 /**
- * Returns the object's constructor function. If the object doesn't have one, `null` will be returned.
- * Note that `null` will be returned even if the object has a parent with a constructor.
+ * Returns the object's constructor function. If the object doesn't have one,
+ * `null` will be returned. Note that `null` will be returned even if the
+ * object has a parent with a constructor.
  *
  * ## Details
- * This function will attempt to detect the constructor of a given object using properties such as `target.constructor`.
- * This may not always be successful. For non-objects, `null`, will be returned.
+ * This function will attempt to detect the constructor of a given object using
+ * properties such as `target.constructor`. This may not always be successful.
+ * For non-objects, `null`, will be returned.
  *
  * @param target The target.
-
  */
 export function ctor(target: TargetObject): SomeConstructor | null {
     return _ctor(target);
 }
 
 /**
- * Returns a string name for an object's  prototype, or an empty string if no such name is found.
+ * Returns a string name for an object's  prototype, or an empty string if no
+ * such name is found.
  * @param target The target object.
  * @see className
  */
 export function classNameOwn(target: TargetObject): string {
-    return _classNameOwn(Object.getPrototypeOf(target));;
+    return _classNameOwn(Object.getPrototypeOf(target));
 }
 
 /**
- * Returns a string name for one of the object's prototypes. `"Object"` is returned as a fallback.
+ * Returns a string name for one of the object's prototypes. `"Object"` is
+ * returned as a fallback.
  *
  * ## Details
- * This function will try to detect the name of the object's constructor or type primarily based on the result of
- * a `toString` call and the `toStringTag` special symbol.
+ * This function will try to detect the name of the object's constructor or
+ * type primarily based on the result of a `toString` call and the
+ * `toStringTag` special symbol.
  *
  * @param target The target.
  * @see classNameOwn
@@ -124,43 +148,54 @@ export function className(target: TargetObject): string {
 }
 
 /**
- * Returns a constructor-chain for the object, which is the same as the prototype chain except with constructors.
+ * Returns a constructor-chain for the object, which is the same as the
+ * prototype chain except with constructors.
  *
  * ## Details
- * The array will always be the length of the object's prototype chain (excluding itself).
- * Prototypes without constructors will be marked with `null`s.
+ * The array will always be the length of the object's prototype chain
+ * (excluding itself). Prototypes without constructors will be marked with
+ * `null`s.
  *
  * @param target The target.
  */
-export function ctors(target: TargetObject, stopAtProto?: unknown): (SomeConstructor | null)[] {
+export function ctors(
+    target: TargetObject, stopAtProto?: unknown): (SomeConstructor | null)[] {
     return _ctors(target);
 }
 
 /**
- * This will configure the property descriptors of the object, changing the attributes of existing properties.
+ * This will configure the property descriptors of the object, changing the
+ * attributes of existing properties.
  *
  * ## Details
- * This will modify the property descriptors of existing properties, not create new ones. Every property found in
- * `spec` will be modified to have the attirbutes in the array. Attributes will not be merged.
+ * This will modify the property descriptors of existing properties, not create
+ * new ones. Every property found in
+ * `spec` will be modified to have the attirbutes in the array. Attributes will
+ * not be merged.
  *
- * If an attempt is made to reconfigure a non-configurable property, an error will be thrown.
+ * If an attempt is made to reconfigure a non-configurable property, an error
+ * will be thrown.
  *
  * @param target The target
  * @param spec For each property, how to set its attributes.
  */
-export function configureDescriptorsOwn<T>(target: T, spec: DefineDescriptors<T>): T {
+export function configureDescriptorsOwn<T>(
+    target: T, spec: DefineDescriptors<T>): T {
     return _configureDescriptorsOwn(target, spec);
 }
 
 /**
- * Mixes all property descriptors belonging to each objects in `sources` into `target`, including inherited members.
+ * Mixes all property descriptors belonging to each objects in `sources` into
+ * `target`, including inherited members.
  *
  * ## Details
- * This function will define all descriptors present in `sources` on `target`, overwriting existing descriptors,
- * with the exception of non-configurable ones that can't be modified.
- * The descriptors will be defined exactly as they are in each of the `sources` objects.
+ * This function will define all descriptors present in `sources` on `target`,
+ * overwriting existing descriptors, with the exception of non-configurable
+ * ones that can't be modified. The descriptors will be defined exactly as they
+ * are in each of the `sources` objects.
  *
- * Although inherited descriptors are included, descriptors present in both objects via prototype inheritance
+ * Although inherited descriptors are included, descriptors present in both
+ * objects via prototype inheritance
  * (i.e. if they have the same prototype) are not transferred.
  *
  * @param target Thet target object.
@@ -175,7 +210,10 @@ export function mixin<T>(target: T, ...sources: TargetObject[]) {
  * Returns the closest prototype shared by all objects.
  *
  * ## Details
- * For identical
+ * For two identical objects, their nearest common prototype is the object
+ * itself. For two identical primitives (or just one), however, the nearest
+ * common prototype is the wrapper prototype. This is because primitives are
+ * not actually part of the prototype chain at all.
  *
  * @param args All objects.
  */

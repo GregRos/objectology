@@ -9,7 +9,8 @@ export interface PropertyFilter {
      */
     noInherited?: boolean;
     /**
-     * Will not enumerate the keys owned by this prototype object or its descendants.
+     * Will not enumerate the keys owned by this prototype object or its
+     * descendants.
      */
     stopAtProto?: unknown;
     /**

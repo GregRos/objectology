@@ -15,7 +15,7 @@ test("identical primitives give Primitive", t => {
     t.is(nearestCommonPrototype(1, 1), Number.prototype);
 });
 
-test("identical objects give target", t =>{
+test("identical objects give target", t => {
     let a = {};
     t.is(nearestCommonPrototype(a, a), a);
 });
@@ -45,7 +45,6 @@ test("nulls and undefineds always give null", t => {
 });
 
 
-
 test("A ⊆ B, B ⇒ B", t => {
     let a = {};
     let b = Object.create(a);
@@ -62,10 +61,12 @@ test("A ⊆ B, C ⊆ B gives B", t => {
 });
 
 test("two null-prototype objects give null", t => {
-    t.is(nearestCommonPrototype(Object.create(null), Object.create(null)), null);
+    t.is(nearestCommonPrototype(Object.create(null), Object.create(null)),
+        null
+    );
 });
 
 test("two of the same object and something else give Object", t => {
     let a = {};
     t.is(nearestCommonPrototype(a, a, {}), Object.prototype);
-})
+});

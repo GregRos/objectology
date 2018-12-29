@@ -8,7 +8,8 @@ test("for primitives, gives [Primitive, Object]", t => {
     t.deepEqual(protoChain(""), [String.prototype, Object.prototype]);
     let symbolProtoChain = protoChain(Symbol.toStringTag);
     // Using t.deepEqual here fails due to how Symbol.prototype behaves.
-    t.true(symbolProtoChain[0] === Symbol.prototype && symbolProtoChain[1] === Object.prototype);
+    t.true(symbolProtoChain[0] === Symbol.prototype && symbolProtoChain[1] ===
+        Object.prototype);
 });
 
 test("for null and undefined, gives empty", t => {
@@ -32,11 +33,12 @@ test("for array, gives the same as object", t => {
 });
 
 test("for function, gives [target, Function, Object]", t => {
-    let f = () => {};
+    let f = () => {
+    };
     t.deepEqual(protoChain(f), [f, Function.prototype, Object.prototype]);
 });
 
-test("for wrapped primitive, gives [target, Primitive, Object]", t =>{
+test("for wrapped primitive, gives [target, Primitive, Object]", t => {
     let n = new Number(1);
     let b = new Boolean(true);
     let str = new String("a");

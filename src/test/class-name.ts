@@ -33,12 +33,15 @@ test("undefined", t => {
 });
 
 test("function", t => {
-    t.is(className(() => {}), "Function");
-    t.is(className(function Blah() {}), "Function");
+    t.is(className(() => {
+    }), "Function");
+    t.is(className(function Blah() {
+    }), "Function");
 });
 
 test("function - prototype null", t => {
-    let f = function() {};
+    let f = function () {
+    };
     Object.setPrototypeOf(f, null);
     t.is(className(f), "Function");
 });
@@ -62,12 +65,17 @@ test("Object.create - unnamed", t => {
 });
 
 test("object by named constructor", t => {
-    function Blah() {}
-    t.is(className(new function Blah() {}), "Blah");
+    function Blah() {
+    }
+
+    t.is(className(new function Blah() {
+    }), "Blah");
 });
 
 test("object with named prototype, not using constructor", t => {
-    function Blah() {}
+    function Blah() {
+    }
+
     let x = Object.create(Blah.prototype);
     t.is(className(x), "Blah");
 });
@@ -77,7 +85,7 @@ test("object with toStringTag", t => {
 });
 
 test("object with toStringTag on proto - used", t => {
-    t.is(className(Object.create({[Symbol.toStringTag] : "hi"})), "hi");
+    t.is(className(Object.create({[Symbol.toStringTag]: "hi"})), "hi");
 });
 
 test("known object - Map", t => {
