@@ -5,7 +5,7 @@ export function _protoChain(target: TargetObject, stopAt?: unknown) {
     let protos = [];
     function recurse(proto: unknown) {
         if (proto == null || stopAt === proto) return;
-        protos.push(proto);
+        if (typeof proto === "object" || typeof proto === "function") protos.push(proto);
         let pproto = Object.getPrototypeOf(proto);
         recurse(pproto);
     }

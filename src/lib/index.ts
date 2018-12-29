@@ -172,12 +172,15 @@ export function mixin<T>(target: T, ...sources: TargetObject[]) {
 }
 
 /**
- * Returns the closest shared prototype of two objects. For identical objects, their direct prototype will be returned.
- * @param a The first object.
- * @param b The second object.
+ * Returns the closest prototype shared by all objects.
+ *
+ * ## Details
+ * For identical
+ *
+ * @param args All objects.
  */
-export function closestCommonPrototype(a: TargetObject, b: TargetObject): object {
-    return _closestCommonPrototype(a, b);
+export function closestCommonPrototype(...args: TargetObject[]): object {
+    return _closestCommonPrototype(...args);
 }
 
 

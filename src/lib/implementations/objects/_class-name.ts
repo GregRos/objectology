@@ -3,6 +3,7 @@ import {_ctor} from "./_ctor";
 import {protoChain} from "../../index";
 import {_getPropertyOwn} from "./_get-property-own";
 import {_protos} from "./_protos";
+import {_protoChain} from "./_proto-chain";
 
 export function _classNameOwn(target: TargetObject): string {
     // We will try to get the toStringTag of the object first
@@ -27,7 +28,7 @@ export function _className(target: TargetObject): string {
 
     // Handles a bizarre case of prototype corruption
     if (typeof target === "function") return "Function";
-    let protos = _protos(target);
+    let protos = _protoChain(target);
     for (let proto of protos) {
         let clsName = _classNameOwn(proto);
         if (clsName) return clsName;
