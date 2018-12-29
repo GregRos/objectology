@@ -10,7 +10,7 @@ import {_className, _classNameOwn} from "./implementations/objects/_class-name";
 import {_ctors} from "./implementations/objects/_ctors";
 import {_configureDescriptorsOwn} from "./implementations/objects/_configure-descriptors-own";
 import {_mixin} from "./implementations/objects/_mixin";
-import {_closestCommonPrototype} from "./implementations/objects/_closest-common-prototype";
+import {_nearestCommonPrototype} from "./implementations/objects/_nearest-common-prototype";
 
 /**
  * Returns all non-symbol keys in `target`, including inherited keys. Use `filter` to exclude some keys.
@@ -179,8 +179,8 @@ export function mixin<T>(target: T, ...sources: TargetObject[]) {
  *
  * @param args All objects.
  */
-export function closestCommonPrototype(...args: TargetObject[]): object {
-    return _closestCommonPrototype(...args);
+export function nearestCommonPrototype(...args: TargetObject[]): object {
+    return _nearestCommonPrototype(...args);
 }
 
 

@@ -1,7 +1,7 @@
 import {TargetObject} from "../../abstract";
 import {_protoChain} from "./_proto-chain";
 
-export function _closestCommonPrototype(...objs: TargetObject[]): object {
+export function _nearestCommonPrototype(...objs: TargetObject[]): object {
     let mapped = objs.map(obj => _protoChain(obj)).sort((a, b) => a.length - b.length);
     if (mapped.length === 0) return null;
     if (mapped.length === 1) {
