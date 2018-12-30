@@ -24,8 +24,9 @@ import {_nearestCommonPrototype} from "./objects/_nearest-common-prototype";
  *
  * ### Details
  * This function will recurse into the object's prototype chain,
- * extracting all own and inherited non-symbol keys in the object. Numeric key
- * will be returned in string form. dfsdfdsfsdfsdf fdfsdf
+ * extracting all own and inherited non-symbol keys in the object, even
+ * non-enumerable ones. Array indexes and similar will be returned in their
+ * key-like string form.
  *
  * @param target The target.
  * @param filter An object describing which types of keys to exclude, if any.
@@ -33,10 +34,7 @@ import {_nearestCommonPrototype} from "./objects/_nearest-common-prototype";
  */
 export function keysAllStr(
     target: TargetObject, filter?: PropertyFilter): string[] {
-    let x = 111111111111111111111111111111111111111111111111111 +
-        1111111111111111111111111111;
     return _keysAllStr(target, filter);
-
 }
 
 /**
@@ -61,8 +59,10 @@ export function keysOwn(target: TargetObject): PropertyKey[] {
 }
 
 /**
- * Returns information about every property in the object, including inherited
- * properties. Use `filter` to exclude some objects.
+ * Returns every property descriptor in the object or inherited by the
+ * object, with information about where the descriptor was found. By
+ * default, all property descriptors are returned; use `filter` to exclude
+ * some descriptors.
  *
  * @param target The target.
  * @param filter An object describing which properties to exclude, if any.
@@ -75,13 +75,25 @@ export function descriptorsAll(
 }
 
 /**
- * Returns the prototype chain of the object, including the object itself.
+ * Returns the prototype chain of the object, including the object itself
+ * (if it is a prototype - primitives are not, and will not appear in the
+ * chain).
  *
- * ## Details
- * For primitive types, their wrapper object's prototype chain will be used.
- * For objects without prototypes, a one-element array containing `target` will
- * be returned.
+ * Use `stopAtProto` to indicate a prototype at which to stop going down the
+ * prototype chain. This prototype will not be returned.
  *
+ * The prototype chain is  in decreasing order of nearness to the target
+ * object. For example,
+ *
+ * ```js
+ * function Example() {};
+ *
+ * let obj = new Example();
+ *
+ * protoChain(obj);
+ * ```
+ *
+ * Will yield `[obj, Example.prototype, Object.prototype]`.
  * @param target The target.
  * @param stopAtProto The prototype at which to stop.
  */
@@ -91,11 +103,9 @@ export function protoChain(
 }
 
 /**
- * Returns the prototype chain of the object, not including the object itself.
-
- * ## Details
- * For primitive types, their wrapper object's prototype chain will be returned.
- * For objects without prototypes, an empty array will be returned.
+ * Returns the prototypes of the object, not including the object itself.
+ * This is the same as [[protoChain]], except the object will not appear in
+ * the chain. For primtives, the two functions return the same array.
  *
  * @param target The target.
  * @param stopAtProto The prototype at which to stop.
@@ -105,14 +115,9 @@ export function protos(target: TargetObject, stopAtProto?: unknown): unknown[] {
 }
 
 /**
- * Returns the object's constructor function. If the object doesn't have one,
- * `null` will be returned. Note that `null` will be returned even if the
- * object has a parent with a constructor.
- *
- * ## Details
- * This function will attempt to detect the constructor of a given object using
- * properties such as `target.constructor`. This may not always be successful.
- * For non-objects, `null`, will be returned.
+ * Returns the object's immediate constructor function. If the object
+ * doesn't have one, `null` will be returned. Note that `null` will be
+ * returned even if the object has a prototype with a constructor.
  *
  * @param target The target.
  */
@@ -121,8 +126,24 @@ export function ctor(target: TargetObject): SomeConstructor | null {
 }
 
 /**
- * Returns a string name for an object's  prototype, or an empty string if no
- * such name is found.
+ * Returns a string name for an object's immediate prototype, or an empty string
+ * if no such name is found.
+ *
+ * ## Details
+ * This function gets the name from the object's `.constructor` property,
+ * the `Symbol.toStringTag` key, or a few other sources.
+ *
+ * The benefit of using this function over [[className]] is that
+ * [[classNameOwn]] will not identify an object as having the class name of
+ * its ancestors. This allows you to disintuish between a prototype and
+ * objects having that prototype.
+ *
+ * Note that when using this function to identify an object's prototype,
+ * custom objects called (e.g.) `Set` or `Object` will not be
+ * distinguishable from the built-in objects. However, in spite of this,
+ * this function is a pretty good way to determine an arbitrary object's
+ * prototype, and it's used internally to do so.
+ *
  * @param target The target object.
  * @see className
  */
@@ -131,13 +152,22 @@ export function classNameOwn(target: TargetObject): string {
 }
 
 /**
- * Returns a string name for one of the object's prototypes. `"Object"` is
- * returned as a fallback.
+ * Returns a string name that can be used to describe an object's prototype.
+ * See [[classNameOwn]] for more information about how this is done.
  *
- * ## Details
- * This function will try to detect the name of the object's constructor or
- * type primarily based on the result of a `toString` call and the
- * `toStringTag` special symbol.
+ * The main difference is that [[classNameOwn]] looks at the object's
+ * immediate prototype for a name, while this function will look higher up
+ * the prototype chain, giving prototypes and objects having that prototype
+ * potentially identical names.
+ *
+ * Another difference is that this function will return `"Object"` for objects
+ * having no prototype, while [[classNameOwn]] returns an empty string (to
+ * indicate no prototype was found).
+ *
+ * This function is more helpful if you want to print out the type of an
+ * object for e.g. debugging, while the other function is helpful if you
+ * want to identify an object's prototype.
+ *
  *
  * @param target The target.
  * @see classNameOwn
@@ -148,15 +178,12 @@ export function className(target: TargetObject): string {
 }
 
 /**
- * Returns a constructor-chain for the object, which is the same as the
- * prototype chain except with constructors.
- *
- * ## Details
- * The array will always be the length of the object's prototype chain
- * (excluding itself). Prototypes without constructors will be marked with
- * `null`s.
+ * Returns a constructor chain for the object, which is the same as the
+ * prototype chain except with constructors. The length of the chain is
+ * identical to the length of the return of [[protos]] for the object.
  *
  * @param target The target.
+ * @param stopAtProto The prototype at which to stop listing the constructors.
  */
 export function ctors(
     target: TargetObject, stopAtProto?: unknown): (SomeConstructor | null)[] {
@@ -165,13 +192,12 @@ export function ctors(
 
 /**
  * This will configure the property descriptors of the object, changing the
- * attributes of existing properties.
+ * attributes of existing descriptors.
  *
  * ## Details
  * This will modify the property descriptors of existing properties, not create
- * new ones. Every property found in
- * `spec` will be modified to have the attirbutes in the array. Attributes will
- * not be merged.
+ * new ones. Every property found in `spec` will be modified to have the
+ * attirbutes in the array. Attributes will not be merged.
  *
  * If an attempt is made to reconfigure a non-configurable property, an error
  * will be thrown.
@@ -209,7 +235,6 @@ export function mixin<T>(target: T, ...sources: TargetObject[]) {
 /**
  * Returns the closest prototype shared by all objects.
  *
- * ## Details
  * For two identical objects, their nearest common prototype is the object
  * itself. For two identical primitives (or just one), however, the nearest
  * common prototype is the wrapper prototype. This is because primitives are

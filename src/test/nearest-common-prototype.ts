@@ -41,7 +41,9 @@ test("nulls and undefineds always give null", t => {
     t.is(nearestCommonPrototype(null), null);
     t.is(nearestCommonPrototype(undefined), null);
     t.is(nearestCommonPrototype(null, undefined, ""), null);
-    t.is(nearestCommonPrototype(null, new Number(1), new Number(4)), null);
+    t.is(nearestCommonPrototype(null, new Number(1), new Number(4), 1, 1, 1),
+        null
+    );
 });
 
 
