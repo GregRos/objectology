@@ -52,6 +52,10 @@ export function keysAll(
 
 /**
  * Returns all the own keys of an object, including non-enumerable keys.
+ * This is identical to the combination of `getOwnPropertyNames` and
+ * `getOwnPropertySymbols`.
+ *
+ * Keys that are array index-like are returned as numbers.
  * @param target The target.
  */
 export function keysOwn(target: TargetObject): PropertyKey[] {
@@ -82,7 +86,7 @@ export function descriptorsAll(
  * Use `stopAtProto` to indicate a prototype at which to stop going down the
  * prototype chain. This prototype will not be returned.
  *
- * The prototype chain is  in decreasing order of nearness to the target
+ * The prototype chain is in decreasing order of nearness to the target
  * object. For example,
  *
  * ```js
