@@ -11,6 +11,7 @@ export function _descriptorsMap(
     target: TargetObject,
     filter?: PropertyFilter): Map<PropertyKey, ExpandedPropertyDescriptor> {
     let descs = new Map<PropertyKey, ExpandedPropertyDescriptor>();
+    filter = filter || {};
     let protos = filter.noInherited ? [target] : _protoChain(target,
         filter.stopAtProto
     );

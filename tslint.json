@@ -29,7 +29,6 @@
       true
     ],
     "no-duplicate-super": true,
-    "no-construct": true,
     "no-arg": true,
     "use-isnan": true,
     "no-duplicate-imports": true,
