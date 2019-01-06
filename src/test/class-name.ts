@@ -69,7 +69,7 @@ test("object by named constructor", t => {
     }
 
     t.is(className(new function Blah() {
-    }), "Blah");
+    }()), "Blah");
 });
 
 test("object with named prototype, not using constructor", t => {

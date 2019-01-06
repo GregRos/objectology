@@ -210,7 +210,7 @@ export function ctors(
  * @param spec For each property, how to set its attributes.
  */
 export function configureDescriptorsOwn<T>(
-    target: T, spec: DefineDescriptors<T>): T {
+    target: T, spec: DefineDescriptors<T> | ((x : PropertyDescriptor, key: PropertyKey) => void)): T {
     return _configureDescriptorsOwn(target, spec);
 }
 

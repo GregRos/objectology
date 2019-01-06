@@ -1,1 +1,39 @@
-{  "name": "rummage",  "version": "0.0.1",  "repository": "",  "typings": "index",  "description": "Powerful library for inspecting JS objects",  "main": "index.js",  "sideEffects": false,  "scripts": {    "build": "rm -rf dist/ && tsc",	"test": "yarn run build && yarn run test-only",    "test-only": "ava dist/test/**/*.js --verbose"  },  "keywords": [],  "author": "Greg Rosenbaum",  "license": "MIT",  "dependencies": {  },  "devDependencies": {    "@types/node": "^10.12.18",    "ava": "^1.0.1",    "tslint": "^5.12.0",    "tslint-consistent-codestyle": "^1.14.1",    "typescript": "^3.2.2",	"@types/lodash": "^4.14.119",	"lodash": "^4.17.11"  }}
+{
+  "name": "objectology",
+  "version": "0.0.2",
+  "repository": "https://github.com/GregRos/objectology",
+  "typings": "dist/lib/index.d.ts",
+  "description": "Powerful library for inspecting JS objects",
+  "main": "dist/lib/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "test": "yarn run build && yarn run test-only",
+    "test-only": "ava dist/test/**/*.js --verbose"
+  },
+  "keywords": [],
+  "author": "Greg Rosenbaum",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.18",
+    "ava": "^1.0.1",
+    "lodash": "^4.17.11",
+    "nyc": "^13.1.0",
+    "tslint": "^5.12.0",
+    "tslint-consistent-codestyle": "^1.14.1",
+    "typescript": "^3.2.2"
+  },
+  "nyc": {
+	"produce-source-map": true,
+	"include": [
+	  "dist/lib/**/*.js"
+	],
+	"reporter": [
+	  "lcov",
+	  "text-summary"
+	],
+	"sourceMap": true
+  }
+}

@@ -3,5 +3,5 @@ export function _properifyKey(x: any): string | number {
     // this converts valid array indexes into numeric form
     let numerified = +x;
     if (!Number.isSafeInteger(numerified) && numerified >= 0) return x;
-    return ("" + numerified) === x ? +x : x;
+    return (`${numerified}`) === x ? +x : x;
 }

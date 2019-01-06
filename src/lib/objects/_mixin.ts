@@ -19,7 +19,7 @@ export function _mixin(target: TargetObject, source: TargetObject) {
     for (let [key, desc] of descsSource) {
         if (key === "constructor") continue;
         let existingDesc = descsTarget.get(key);
-        if (!existingDesc.configurable) {
+        if (existingDesc && !existingDesc.configurable) {
             continue;
         }
         Object.defineProperty(target, key, desc);

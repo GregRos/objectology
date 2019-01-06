@@ -26,7 +26,7 @@ export interface ExpandedPropertyDescriptor extends PropertyDescriptor {
 }
 
 export type DefineDescriptors<T> = {
-    [key in keyof T]: ("no-enum" | "no-write" | "no-config")[];
+    [key in keyof T]?: ("no-enum" | "no-write" | "no-config")[];
 }
 export type TargetObject = unknown;
 export type SomeConstructor = {

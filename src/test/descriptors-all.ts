@@ -118,6 +118,49 @@ test("depth0 - object valued property", t => {
     t.is(actual.find(x => x.key === "x").value, expected.find(x => x.key === "x").value);
 });
 
+test("depth0 - int key", t => {
+    let obj = Object.create(null, {
+        1: {
+            value: 5
+        },
+        "0.1": {
+            value: 10
+        }
+    });
+
+    let descs = descriptorsAll(obj);
+
+    t.true(_.isMatch(descs[0], {
+        key: 1,
+        value: 5
+    }));
+
+    t.true(_.isMatch(descs[1], {
+        key: "0.1",
+        value: 10
+    }));
+});
+
+test("depth0 - symbol key", t => {
+    let symb = Symbol("hi");
+    let obj = Object.create(null, {
+        [symb]: {
+            value: 11
+        }
+    });
+    let descs = descriptorsAll(obj);
+
+    t.deepEqual(descs, [{
+        key: symb,
+        value: 11,
+        configurable: false,
+        writable: false,
+        enumerable: false,
+        owner: obj,
+        depth: 0
+    }]);
+});
+
 test("depth1 - basic mix", t => {
     let obj = Object.create(null),
         obj2 = Object.create(obj);
@@ -136,6 +179,4 @@ test("depth1 - basic mix", t => {
 
     t.deepEqual(actual, expected);
 });
-
-test()
 
