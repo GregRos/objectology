@@ -1,3 +1,5 @@
+import _ = require("lodash/fp");
+
 export function seqEqual<T>(result: T[], expected: T[]) {
     if (!result || !expected) return result === expected;
     if (result.length !== expected.length) return false;
@@ -8,7 +10,18 @@ export function seqEqual<T>(result: T[], expected: T[]) {
     return true;
 }
 
-export function stripPrototype(o: any) {
-    Object.setPrototypeOf(o, null);
-    return o;
+export function createChain(own: any, ...protos: object[]) {
+    let last = null;
+    for (let proto of protos.reverse()) {
+        if (!last) {
+            last = proto;
+        } else {
+            last = Object.setPrototypeOf(last, _.clone(proto));
+        }
+    }
+    return Object.setPrototypeOf(_.clone(own), last);
+}
+
+export function isProtoChainEqual(what: any, chain: any) {
+
 }

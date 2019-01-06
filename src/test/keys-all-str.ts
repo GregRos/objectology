@@ -1,6 +1,6 @@
 import test from "ava";
 import {keysAll, keysAllStr} from "../lib";
-import {stripPrototype} from "./helpers/seq-identity";
+import {createChain} from "./helpers/seq-identity";
 
 test("gives [] for null/undefined", t => {
     t.deepEqual(keysAllStr(null), []);
@@ -12,7 +12,7 @@ test("gives [] for empty object", t => {
 });
 
 test("gives numeric keys in string form", t => {
-    t.deepEqual(keysAllStr(stripPrototype({0:1})), ["0"]);
+    t.deepEqual(keysAllStr(createChain({0:1})), ["0"]);
 });
 
 test("skips symbols", t => {
@@ -20,5 +20,5 @@ test("skips symbols", t => {
     let x = {
         [symb]: 1
     };
-    t.deepEqual(keysAllStr(stripPrototype(x)), []);
+    t.deepEqual(keysAllStr(createChain(x)), []);
 });
