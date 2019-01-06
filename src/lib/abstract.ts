@@ -32,4 +32,4 @@ export type TargetObject = unknown;
 export type SomeConstructor = {
     (...args): any;
     new(...args): any;
-};
+} | SymbolConstructor;

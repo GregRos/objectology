@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf dist/ && tsc",
     "test": "yarn run build && yarn run test-only",
-    "test-only": "ava dist/test/**/*.js --verbose"
+    "test-only": "ava dist/test/*.js --verbose"
   },
   "keywords": [],
   "author": "Greg Rosenbaum",
@@ -28,7 +28,7 @@
   "nyc": {
 	"produce-source-map": true,
 	"include": [
-	  "dist/lib/**/*.js"
+	  "dist/lib/*.js"
 	],
 	"reporter": [
 	  "lcov",
