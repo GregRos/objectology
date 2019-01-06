@@ -1,5 +1,3 @@
-import {ExecutionContext} from "ava";
-
 export function seqEqual<T>(result: T[], expected: T[]) {
     if (!result || !expected) return result === expected;
     if (result.length !== expected.length) return false;
@@ -8,4 +6,9 @@ export function seqEqual<T>(result: T[], expected: T[]) {
         if (result[i] !== expected[i]) return false;
     }
     return true;
+}
+
+export function stripPrototype(o: any) {
+    Object.setPrototypeOf(o, null);
+    return o;
 }

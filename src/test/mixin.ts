@@ -1,11 +1,7 @@
 import test from "ava";
 import {mixin} from "../lib";
+import {stripPrototype} from "./helpers/seq-identity";
 import _ = require("lodash/fp");
-
-function stripPrototype(o: any) {
-    Object.setPrototypeOf(o, null);
-    return o;
-}
 
 test("mixin into null/undefined gives null/undefined", t => {
     t.is(mixin(null, {a: 1}), null);
