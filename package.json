@@ -1,6 +1,6 @@
 {
   "name": "objectology",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "repository": "https://github.com/GregRos/objectology",
   "typings": "dist/lib/index.d.ts",
   "description": "Powerful library for inspecting JS objects",
@@ -14,7 +14,6 @@
   "keywords": [],
   "author": "Greg Rosenbaum",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.18",
