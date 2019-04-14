@@ -49,7 +49,7 @@ test("(null prototype) works with 2x source", t => {
     });
 });
 
-test("(target, source); target has prototype", t => {
+test.skip("(target, source); target has prototype", t => {
     let target = createChain({a: 1}, {b: 1});
     let source = createChain({c: 1});
     let result = mixin(target, source);
@@ -60,7 +60,7 @@ test("(target, source); target has prototype", t => {
     });
 });
 
-test("(target, source); both have different prototypes", t => {
+test.skip("(target, source); both have different prototypes", t => {
     let target = createChain({a: 1}, {b: 1});
     let source = createChain({c: 1}, {d: 1});
     let result = mixin(target, source);

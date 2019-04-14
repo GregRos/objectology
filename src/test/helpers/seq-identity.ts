@@ -10,6 +10,19 @@ export function seqEqual<T>(result: T[], expected: T[]) {
     return true;
 }
 
+export function setEqual(a: any[], b: any[]) : [boolean, string] {
+    const notEqualReply : [boolean, string] = [false, "The sets were not equal."]
+    const equalReply : [boolean, string] = [true,undefined];
+
+    if (a.length !== b.length) return notEqualReply;
+
+    for (let x of a) {
+        if (b.every(y => !_.isEqual(x, y))) return notEqualReply;
+    }
+    return equalReply;
+}
+
+
 export function createChain(own: any, ...protos: object[]) {
     let last = null;
     for (let proto of protos.reverse()) {

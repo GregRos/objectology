@@ -47,3 +47,25 @@ test("for wrapped primitive, gives [target, Primitive, Object]", t => {
     t.true(seqEqual(protoChain(b), [b, Boolean.prototype, Object.prototype]));
     t.true(seqEqual(protoChain(str), [str, String.prototype, Object.prototype]));
 });
+
+test("stopAtProto works", t => {
+    let a = Object.create(null);
+    let b = Object.create(a);
+    let c = Object.create(b);
+    t.true(seqEqual(protoChain(c, b), [c]));
+    t.true(seqEqual(protoChain(c, a), [c, b]));
+})
+
+test("stopAtProto, when stopAt == this", t => {
+    let a = Object.create(null);
+    t.true(seqEqual(protoChain(a, a), []));
+});
+
+test("stopAtProto, when stopAt ∉ this", t => {
+    let a = Object.create(null);
+    let b = Object.create(a);
+    let c = Object.create(b);
+    t.true(seqEqual(protoChain(c, {}), [c, b, a]));
+});
+
+

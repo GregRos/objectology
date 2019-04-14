@@ -46,7 +46,7 @@ test("numeric key", t => {
         }
     });
 
-    t.deepEqual(keysAll(a), [5]);
+    t.deepEqual(keysAll(a), ["5"]);
 });
 
 test("null/undefined give []", t => {

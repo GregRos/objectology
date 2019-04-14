@@ -23,7 +23,7 @@ export function _descriptorsMap(
             if ((desc.get || desc.set) && filter.noGetSetter) continue;
             let richDesc: ExpandedPropertyDescriptor = {
                 ...desc,
-                key: _properifyKey(key),
+                key: key,
                 depth: i,
                 owner: proto
             };
